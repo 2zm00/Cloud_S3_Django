@@ -25,7 +25,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')=='True'
 
 ALLOWED_HOSTS = []
 
@@ -122,7 +122,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if DEBUG:
+if not DEBUG:
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
     AWS_STORAGE_BUCKET_NAME= os.getenv("AWS_STORAGE_BUCKET_NAME")
@@ -153,7 +153,7 @@ if DEBUG:
             },
         },
     }
-# else:
-#     STATIC_URL = '/static/'
-#     STATIC_ROOT=BASE_DIR/'static'
-#     MEDIA_URL = '/media/'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT=BASE_DIR/'static'
+    MEDIA_URL = '/media/'
